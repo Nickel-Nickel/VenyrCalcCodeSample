@@ -4,20 +4,80 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>replit</title>
+  <title>Venyr.Calc</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+
+  <style>
+
+  </style>
 </head>
-
+<!-- <header> <a link href=levels.html> Full Build DPR</a> </header>
+ -->
 <body>
-  Hello worm
-  <script src="script.js"></script>
+  <h1>Character DPR</h1>
 
-  <!--
-  This script places a badge on your repl's full-browser view back to your repl's cover
-  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
-  teal, blue, blurple, magenta, pink!
-  -->
-  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
+  <div align="center" style="padding:5px">
+    <label for="level">Character Level: </label>      <!--  creates level input field -->
+    <input id="level" type="number">
+    
+    <label for="advList">Advantage State: </label>    <!-- creates dropdown select -->
+    <select name="advList" id="advStateList">
+      <option value="normal">Normal</option>
+      <option value="disadvantage">Disadvantage</option>
+      <option value="advantage">Advantage</option>
+      <option value="elvenAccuracy">Elven Accuracy</option>
+    </select>
+  </div>
+
+    <button type="button" class="collapsible">Additional Fields</button>
+    <div class="content">
+      <div name="checkBoxes" align="center">
+        <input type="checkbox" class="toggle" id="critch" value="critchtoggle">Crit Chance    <!--  creates checkboxes -->
+        <input type="checkbox" class="toggle" id="critd" value="critdtoggle">Crit Damage
+        <input type="checkbox" class="toggle" id="powfield" value="powfieldtoggle"> Power Attacks
+      </div>
+    </div>
+
+
+  <div align="center" style="padding-top: 5px;">
+    <button id="addAttack">Add Attack</button>
+    <button id="removeAttack">Remove Attack</button>
+  </div>
+  
+  <div id="attacklist" align="center" style="padding-top: 20px; padding-bottom: 10px">
+  
+  </div>
+
+  <a href= "#result">
+  <div style="padding-top:10px" align= "center">
+    <!-- <button onclick="runCalc()">Calculate</button> -->
+    <button id="doCalc">Calculate</button>
+  </div>
+  </a>  
+   <!--  <button onclick="addAttack()">Add Attack</button>
+ -->
+  <div style="padding-top:30px" align="center" >
+    <div style="font-size:30px;" id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
+  </script>
 </body>
 
 </html>
