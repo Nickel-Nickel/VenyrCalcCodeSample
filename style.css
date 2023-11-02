@@ -31,14 +31,13 @@ input[type="text"] {
   width: 100px;
 }
 
-
-
 .collapsible {
-  background-color: #191919;
-  color: white;
+  background-color: #3d1943;
+  background-position-x: right;
+  color: #f9f3e1;
   cursor: pointer;
   padding: 10px;
-  width: 100%;
+  width: 600px;
   border: none;
   text-align: center;
   outline: none;
@@ -46,22 +45,59 @@ input[type="text"] {
 }
 
 .collapsible:hover {
-  background-color: #322f2f;
+  background-color: #53205a;
+  color: #ffffff;
 }
 .collapsible:hover + .content{
-  background-color: #322f2f;
+  background-color: #53205a;  /* 57215e */
+  color: #ffffff;
 }
 
 .toggle:hover {
   cursor: pointer;
 }
 
-
-
 .content {
   padding: 10px;
+  width: 580px;            /* Must be 20px less than collapsible width */
   display: none;
   overflow: hidden;
-  background-color: #191919;
-  color: #ffffff;
+  background-color: #3d1943;  
+  color: #f9f3e1;            
+}
+
+.deleteButton {
+  position: relative;
+  width: 20px;
+  /* Adjust width as needed */
+  height: 20px;
+  /* Adjust height as needed */
+  background-image: url('img/tarsh.png');
+  transform: translateY(15%);
+  /* Set the path to your image */
+  background-size: cover;
+  /* Adjust how the image covers the button */
+  background-position: left;
+  /* Center the image within the button */
+  background-color: transparent;
+  border: none;
+  /* Remove default button border */
+  cursor: pointer;
+  /* Show cursor as pointer on hover */
+}
+
+.topsinglerow {
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+.botsinglerow {
+  padding-bottom: 7px;
+}
+
+.fullAttack {
+  /* border-style: solid; */
+  max-width: 50%;
+  padding-bottom: 0px;
+  border-bottom: 2px solid #6b1976;
 }

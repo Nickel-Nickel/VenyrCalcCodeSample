@@ -7,12 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
   var critdCheckbox = document.getElementById("critd");
   var powFieldBox = document.getElementById("powfield");
   var advSelect = document.getElementById("advStateList");
-  var attackCount = 0;
+  var attackID = 0;
+  var idList = []
   addAttack();
 
   //================================================
   critchCheckbox.addEventListener("change", function() {
-    for (var i = 0; i < attackCount; i++){
+    for (var i of idList){
       const critchinput = document.getElementById("critchance" + i);
       const critchlabel = document.getElementById("critchlabel" + i);
 
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   critdCheckbox.addEventListener("change", function() {
-    for (var i = 0; i < attackCount; i++){
+    for (var i of idList){
       critdmginput = document.getElementById("critdamage" + i);
       critdmglabel = document.getElementById("critdmglabel" + i);
 
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   powFieldBox.addEventListener("change", function() {
 
-    for (var i = 0; i < attackCount; i++){
+    for (var i of idList){
       powfieldinput = document.getElementById("powatt" + i);
       powfieldlabel = document.getElementById("powattlabel" + i);
 
@@ -60,28 +61,37 @@ document.addEventListener("DOMContentLoaded", function () {
   //================================================
   function addAttack(){
     const newAttack = document.createElement("div");  //declares a new row for the inputs
-    newAttack.className = "singlerow";
-    newAttack.style.padding = "1px";
+    newAttack.className = "fullAttack";
+    newAttack.id = attackID
+
+
+    const newAttackRow1 = document.createElement("div");  //declares a new row for the inputs
+    newAttackRow1.className = "topsinglerow";
+    newAttackRow1.id = attackID + "row1";
+
+    const newAttackRow2 = document.createElement("div");  //declares a new row for the inputs
+    newAttackRow2.className = "botsinglerow";
+    newAttackRow2.id = attackID + "row2";
 
     const newHit = document.createElement("input");  //creates to-hit textbox
     newHit.type = "number";
     newHit.className = "innum";
-    newHit.id = "tohit" + attackCount;
+    newHit.id = "tohit" + attackID;
 
     const newDmg = document.createElement("input");  //damage textbox
     newDmg.type = "text";
     newDmg.className = "intext";
-    newDmg.id = "dmg" + attackCount;
+    newDmg.id = "dmg" + attackID;
 
     const attackNum = document.createElement("input");  //attacks textbox
     attackNum.type = "number";
     attackNum.className = "innum";
-    attackNum.id = "attacknum" + attackCount;
+    attackNum.id = "attacknum" + attackID;
 
     const newCritch = document.createElement("input");  //crit chance textbox
     newCritch.type = "number";
     newCritch.className = "innum";
-    newCritch.id = "critchance" + attackCount;
+    newCritch.id = "critchance" + attackID;
     if (critchCheckbox.checked) {
       newCritch.style.display = "inline";
     } else {
@@ -91,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newCritform = document.createElement("input");  //crit damage textbox
     newCritform.type = "text";
     newCritform.className = "intext";
-    newCritform.id = "critdamage" + attackCount;
+    newCritform.id = "critdamage" + attackID;
     if (critdCheckbox.checked) {
       newCritform.style.display = "inline";
     } else {
@@ -100,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var powerAttackBox = document.createElement("input");
     powerAttackBox.type = "checkbox";
-    powerAttackBox.id = "powatt"+attackCount;
+    powerAttackBox.id = "powatt"+attackID;
     powerAttackBox.value = "powatttoggle";
     powerAttackBox.name = "powatts";
     if (powFieldBox.checked){
@@ -108,6 +118,13 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       powerAttackBox.style.display = "none";
     }
+
+    var deleteButton = document.createElement("button");
+    deleteButton.id = "deleteButton"+attackID;
+    deleteButton.name = "deleter";
+    deleteButton.type = "button";
+    deleteButton.className = "deleteButton";
+    //deleteButton.innerHTML = "Remove";
 
     const newHitLabel = document.createElement("label");  //creates labels for all above fields
     newHitLabel.textContent = "To-hit Modifier: ";
@@ -117,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
     newAttLabel.textContent = " Number of Attacks: ";
 
     const newCritchLabel = document.createElement("label");
-    newCritchLabel.id = "critchlabel" + attackCount;
+    newCritchLabel.id = "critchlabel" + attackID;
     newCritchLabel.textContent = " Crit Chance (decimal): ";
     if (critchCheckbox.checked) {
       newCritchLabel.style.display = "inline";
@@ -126,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const newCritformLabel = document.createElement("label");
-    newCritformLabel.id = "critdmglabel" + attackCount;
+    newCritformLabel.id = "critdmglabel" + attackID;
     newCritformLabel.textContent = " Crit Damage: ";
     if (critdCheckbox.checked) {
       newCritformLabel.style.display = "inline";
@@ -135,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const powAttLabel = document.createElement("label");
-    powAttLabel.id= "powattlabel"+attackCount;
+    powAttLabel.id= "powattlabel"+attackID;
     powAttLabel.textContent = "Power attacks";
     if (powFieldBox.checked){
       powAttLabel.style.display = "inline";
@@ -143,34 +160,54 @@ document.addEventListener("DOMContentLoaded", function () {
       powAttLabel.style.display = "none";
     }
 
+    newAttackRow1.appendChild(deleteButton);
+    newAttackRow1.appendChild(newHitLabel);
+    newAttackRow1.appendChild(newHit);
+    newAttackRow1.appendChild(newDmgLabel);
+    newAttackRow1.appendChild(newDmg);
+    newAttackRow1.appendChild(newAttLabel);
+    newAttackRow1.appendChild(attackNum);
 
+    newAttackRow2.appendChild(newCritchLabel);
+    newAttackRow2.appendChild(newCritch);
+    newAttackRow2.appendChild(newCritformLabel);
+    newAttackRow2.appendChild(newCritform);
+    newAttackRow2.appendChild(powerAttackBox);
+    newAttackRow2.appendChild(powAttLabel);
 
-    newAttack.appendChild(newHitLabel);
-    newAttack.appendChild(newHit);
-    newAttack.appendChild(newDmgLabel);
-    newAttack.appendChild(newDmg);
-    newAttack.appendChild(newAttLabel);
-    newAttack.appendChild(attackNum);
-    newAttack.appendChild(newCritchLabel);
-    newAttack.appendChild(newCritch);
-    newAttack.appendChild(newCritformLabel);
-    newAttack.appendChild(newCritform);
-    newAttack.appendChild(powerAttackBox);
-    newAttack.appendChild(powAttLabel);
+    newAttack.appendChild(newAttackRow1);
+    newAttack.appendChild(newAttackRow2);
+
+    idList.push(attackID);
+    // console.log(idList);
 
     attackContainer.appendChild(newAttack);
-    attackCount++;
+    attackID++;
+
+    // console.log("newAttack ID: " + newAttack.id);
+    var newDelButton = document.getElementById(deleteButton.id);
+    newDelButton.addEventListener("click", function() {
+      removeAttack(newAttack.id);
+    });
 
     var newPowAtt = document.getElementById(powerAttackBox.id);
-    newPowAtt.addEventListener("change", function(){
-      runCalc();
-    });
+    newPowAtt.addEventListener("change", runCalc);
   }
   //================================================
-  function removeAttack(){
-    if (attackCount > 1) {
-        attackContainer.removeChild(attackContainer.lastChild);
-        attackCount--;
+  function removeAttack(idNum){
+    console.log("ID to remove: " + idNum);
+    attackRow = document.getElementById(idNum);
+    if (idList.length > 1) {
+      idIndex = idList.indexOf(parseInt(idNum,10));
+      if (idIndex != -1) {
+        console.log("Index being removed: " + idIndex);
+        idList.splice(idIndex, 1);
+        attackContainer.removeChild(attackRow);
+        console.log("List after removal: " + idList);
+        runCalc();
+      } else {
+        console.log("Index not found!");
+      }
     }
   }
   //================================================
@@ -181,7 +218,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const advval = selectedAdv.value;
     var total = 0;
 
-    for (var i = 0; i < attackCount; i++){
+    for (var j = 0; j < idList.length; j++){
+      i = idList[j];
+
       var deflevel = 1;      //sets defaults
       var deftohit = 5;
       var defdmgform = "1d8+3";
@@ -330,7 +369,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   //================================================
   addAttackBtn.addEventListener("click", addAttack);
-  removeAttackBtn.addEventListener("click", removeAttack);
   calcBtn.addEventListener("click", runCalc);
 });
 
